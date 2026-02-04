@@ -89,6 +89,34 @@ pydantic
 python-multipart
 passlib[bcrypt]
 python-jose[cryptography]
+sqladmin
+"""
+
+DOCKERFILE = """
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+"""
+
+DOCKER_COMPOSE = """
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=sqlite:///./app.db
 """
 
 def generate_project_zip(project_schema: ProjectSchema) -> bytes:
@@ -99,6 +127,8 @@ def generate_project_zip(project_schema: ProjectSchema) -> bytes:
         zip_file.writestr("app/database.py", DATABASE_PY)
         zip_file.writestr("app/auth.py", AUTH_PY)
         zip_file.writestr("requirements.txt", REQUIREMENTS_TXT)
+        zip_file.writestr("Dockerfile", DOCKERFILE)
+        zip_file.writestr("docker-compose.yml", DOCKER_COMPOSE)
         zip_file.writestr("app/__init__.py", "")
         
         # 2. Models
@@ -112,6 +142,12 @@ def generate_project_zip(project_schema: ProjectSchema) -> bytes:
         # 4. Routers
         router_imports = []
         router_inclusions = []
+        
+        # Auth Router
+        from .auth_gen import generate_auth_router
+        zip_file.writestr("app/routers/auth.py", generate_auth_router())
+        router_imports.append("from .routers import auth")
+        router_inclusions.append("app.include_router(auth.router)")
         
         # Create routers package
         zip_file.writestr("app/routers/__init__.py", "")
@@ -128,14 +164,19 @@ def generate_project_zip(project_schema: ProjectSchema) -> bytes:
             router_imports.append(f"from .routers import {model_name.lower()}")
             router_inclusions.append(f"app.include_router({model_name.lower()}.router)")
 
-        # 5. Main App
+        # 5. Admin Panel
+        from .admin_gen import generate_admin_file
+        zip_file.writestr("app/admin.py", generate_admin_file(project_schema.models))
+
+        # 6. Main App
         main_lines = [
             "from fastapi import FastAPI",
-            "from . import models, database",
-            ""
+            "from sqladmin import Admin",
+            "from . import models, database, admin"
         ]
         
         # Imports from routers
+        main_lines.append("from .routers import auth")
         main_lines.extend(router_imports)
         
         main_lines.extend([
@@ -146,20 +187,36 @@ def generate_project_zip(project_schema: ProjectSchema) -> bytes:
             ""
         ])
         
+        # Admin Setup
+        main_lines.extend([
+            "# Admin Panel",
+            "admin_panel = Admin(app, database.engine)",
+            ""
+        ])
+        
+        # Register Admin Views
+        for model_name in project_schema.models.keys():
+            main_lines.append(f"admin_panel.add_view(admin.{model_name}Admin)")
+        if "User" not in project_schema.models: # Add UserAdmin if implicitly created
+             main_lines.append("admin_panel.add_view(admin.UserAdmin)")
+             
+        main_lines.append("")
+        
         # Include routers
+        main_lines.append("app.include_router(auth.router)")
         main_lines.extend(router_inclusions)
         
         main_lines.extend([
             "",
             "@app.get('/')",
             "def read_root():",
-            "    return {'message': 'Welcome to your generated API'}",
+            "    return {'message': 'Welcome to your generated API. Go to /docs for API or /admin for Admin Panel'}",
             ""
         ])
         
         zip_file.writestr("app/main.py", "\n".join(main_lines))
         
-        # 6. Run script
+        # 7. Run script
         zip_file.writestr("run.py", "import uvicorn\n\nif __name__ == '__main__':\n    uvicorn.run('app.main:app', reload=True)")
 
     return zip_buffer.getvalue()

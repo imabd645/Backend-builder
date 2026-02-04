@@ -20,14 +20,30 @@ def generate_models_file(models: Dict[str, ModelDefinition]) -> str:
         ""
     ]
 
+    # Ensure User model exists or key fields are present
+    if "User" not in models:
+        # Create default User model
+        lines.append("class User(Base):")
+        lines.append("    __tablename__ = 'users'")
+        lines.append("    id = Column(Integer, primary_key=True, index=True)")
+        lines.append("    email = Column(String, unique=True, index=True)")
+        lines.append("    hashed_password = Column(String)")
+        lines.append("")
+    
     for model_name, model_def in models.items():
         lines.append(f"class {model_name}(Base):")
         lines.append(f"    __tablename__ = '{model_name.lower()}s'")
         lines.append(f"    id = Column(Integer, primary_key=True, index=True)")
         
+        # Special handling for User model if defined by user to ensure auth fields
+        if model_name == "User":
+             lines.append("    email = Column(String, unique=True, index=True)")
+             lines.append("    hashed_password = Column(String)")
+
         # Fields
         for field_name, field_def in model_def.fields.items():
-            if field_name == "id": continue # Skip ID as it's auto-added
+            if field_name == "id": continue 
+            if model_name == "User" and field_name in ["email", "password", "hashed_password"]: continue # Skip custom auth fields if already handled
             
             sa_type = TYPE_MAPPING.get(field_def.type.lower(), "String")
             nullable = "True" if not field_def.required else "False"

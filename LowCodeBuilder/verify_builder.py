@@ -58,13 +58,27 @@ def test_builder():
             "app/models.py", 
             "app/schemas.py", 
             "app/routers/post.py",
-            "requirements.txt"
+            "app/routers/auth.py", 
+            "app/admin.py",
+            "requirements.txt",
+            "Dockerfile",
+            "docker-compose.yml"
         ]
         
         for f in expected_files:
             if f not in z.namelist():
                 print(f"ERROR: Missing expected file {f}")
                 return
+        
+        # Check if auth.py content has SECRET_KEY
+        auth_content = z.read("app/auth.py").decode("utf-8")
+        if "pwd_context" in auth_content:
+             print("Auth content check passed (Bcrypt present).")
+             
+        # Check requirements
+        req_content = z.read("requirements.txt").decode("utf-8")
+        if "passlib" in req_content:
+             print("Requirements check passed (Passlib present).")
         
         print("SUCCESS: All expected files present.")
         
