@@ -1,11 +1,11 @@
-# Low-Code Backend Builder 🚀
+# Backend Builder 🚀
 
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.95+-009688.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-**Low-Code Backend Builder** is a robust, visual development platform designed to accelerate backend creation. It allows developers to design complex database schemas, define relationships visually, and instantly generate **production-grade FastAPI applications** without writing boilerplate code.
+**Backend Builder** is a robust, visual development platform designed to accelerate backend creation. It allows developers to design complex database schemas, define relationships visually, and instantly generate **production-grade FastAPI applications** without writing boilerplate code.
 
 > **Stop writing boilerplate.** Focus on your business logic while the Builder handles the architecture, security, and deployment configuration.
 
@@ -13,7 +13,7 @@
 
 ## 🌟 Why Use This?
 
-Building a modern backend involves setting up the same foundational elements every time: authentication, database connections, Pydantic schemas, CRUD routers, and Docker configs. **Low-Code Builder** automates this entire process.
+Building a modern backend involves setting up the same foundational elements every time: authentication, database connections, Pydantic schemas, CRUD routers, and Docker configs. **Builder** automates this entire process.
 
 - **⏱️ Save Time**: Go from Zero to Deployed API in minutes.
 - **🔒 Secure by Default**: Generated apps come with industry-standard JWT authentication and password hashing (Argon2/PBKDF2).
@@ -77,8 +77,8 @@ The platform consists of two main parts:
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/yourusername/LowCodeBuilder.git
-    cd LowCodeBuilder
+    git clone https://github.com/imabd645/Backend-builder.git
+    
     ```
 
 2.  **Create a Virtual Environment**
@@ -147,5 +147,5 @@ app/
 ---
 
 ## 📄 License
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
 
-Distributed under the MIT License. See `LICENSE` for more information.
