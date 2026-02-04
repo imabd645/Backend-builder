@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor - Low-Code Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        /* Builder specific */
+    </style>
+</head>
+
+<body>
+    <div
+        style="padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button id="back-btn" class="btn btn-secondary btn-sm">← Back</button>
+            <h3 id="project-name" style="margin: 0; font-size: 1.25rem;">Project Name</h3>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <button onclick="window.location.href='profile.html'" class="btn btn-secondary btn-sm">Profile</button>
+            <button id="generate-btn" class="btn btn-primary">Download Code (.zip)</button>
+        </div>
+    </div>
+
+    <div class="builder-layout container" style="max-width: 100%; height: calc(100vh - 80px);">
+        <div class="sidebar glass-panel" style="padding: 1.5rem;">
+            <h4
+                style="margin-bottom: 1rem; color: var(--text-muted); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                Models</h4>
+            <ul id="model-list-sidebar" style="list-style: none; margin-bottom: 2rem;">
+                <!-- List -->
+            </ul>
+            <button id="add-model-btn" class="btn btn-secondary w-full" style="width: 100%;">+ Add Model</button>
+        </div>
+
+        <div class="canvas-area" id="canvas">
+            <svg id="connections-layer"
+                style="position:absolute; top:0; left:0; width:5000px; height:5000px; pointer-events:none; z-index:1;"></svg>
+            <!-- Model Cards -->
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="model-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Add Data Model</h2>
+            <input type="text" id="model-name-input" placeholder="Model Name (e.g. BlogPost)">
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button id="save-model-btn" class="btn btn-primary">Add Model</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="field-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Add Field</h2>
+            <input type="text" id="field-name-input" placeholder="Field Name (e.g. title)">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                <select id="field-type-input" class="input-field">
+                    <option value="string">String</option>
+                    <option value="text">Text (Long)</option>
+                    <option value="int">Integer</option>
+                    <option value="boolean">Boolean</option>
+                    <option value="float">Float</option>
+                    <option value="datetime">DateTime</option>
+                </select>
+                <label
+                    style="display: flex; align-items: center; gap: 0.5rem; background: #f1f5f9; padding: 0 1rem; border-radius: 12px; height: 46px;">
+                    <input type="checkbox" id="field-required-input" checked> Required
+                </label>
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button id="save-field-btn" class="btn btn-primary">Save Field</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="relation-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Add Relationship</h2>
+            <p id="relation-desc" style="color: var(--text-muted); margin-bottom: 1rem;">Connecting...</p>
+
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Type</label>
+                <select id="relation-type-input" class="input-field">
+                    <option value="one_to_many">One to Many (Source has many Targets)</option>
+                    <option value="many_to_one">Many to One (Source belongs to Target)</option>
+                    <option value="one_to_one">One to One</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button id="save-relation-btn" class="btn btn-primary">Create Relation</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/diagram.js"></script>
+    <script src="js/builder.js"></script>
+</body>
+
+</html>

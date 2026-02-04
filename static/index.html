@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low-Code Backend Builder - Ship Faster</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .landing-hero {
+            text-align: center;
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15), transparent 60%);
+        }
+
+        .landing-hero h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .landing-feature {
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .landing-feature h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="container"
+        style="display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem;">
+        <div style="font-weight: 800; font-size: 1.5rem; color: var(--dark);">Builder<span
+                style="color:var(--primary);">.io</span></div>
+        <div>
+            <a href="login.html" class="btn btn-secondary" style="margin-right: 0.5rem;">Log In</a>
+            <a href="register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+    </nav>
+
+    <div class="landing-hero container">
+        <div class="hero-bg"></div>
+        <h1>Build Production-Ready<br>Backends visually.</h1>
+        <p class="subtitle">Design your data models, define relationships, and get a complete Dockerized FastAPI project
+            in seconds. No boilerplate, just code.</p>
+        <div class="auth-buttons">
+            <a href="register.html" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Start
+                Building Free</a>
+        </div>
+
+        <div class="feature-grid">
+            <div class="landing-feature glass-panel">
+                <h3>⚡ Visual Modeling</h3>
+                <p>Drag, drop, and define your schema. We handle the SQLAlchemy and Pydantic complexity for you.</p>
+            </div>
+            <div class="landing-feature glass-panel">
+                <h3>🔒 Built-in Auth</h3>
+                <p>JWT Authentication, Password Hashing, and User Management come standard out of the box.</p>
+            </div>
+            <div class="landing-feature glass-panel">
+                <h3>🚀 Docker Ready</h3>
+                <p>Get a `Dockerfile` and `docker-compose.yml` instantly. Deploy to any cloud provider in one click.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Go from idea to deployed API in 3 simple steps.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Design Schema</h3>
+                    <p>Use our visual builder to create tables, fields, and define relationships (One-to-Many,
+                        Many-to-Many).</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Configure API</h3>
+                    <p>Set permissions for each model. Choose which endpoints are public, authenticated, or admin-only.
+                    </p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Export Code</h3>
+                    <p>Download a ZIP file containing a fully functional FastAPI app, complete with Docker and Tests.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tech-stack">
+        <div class="container">
+            <div class="section-title">
+                <h2>Built on Modern Tech</h2>
+                <p>We generate clean, idiomatic code using the industry's best tools.</p>
+            </div>
+            <div class="tech-badges">
+                <div class="tech-badge">⚡ FastAPI</div>
+                <div class="tech-badge">🗄️ SQLAlchemy</div>
+                <div class="tech-badge">✅ Pydantic</div>
+                <div class="tech-badge">🐳 Docker</div>
+                <div class="tech-badge">🔒 JWT Auth</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div style="font-weight: 800; font-size: 1.5rem; margin-bottom: 1rem;">Builder<span
+                    style="color:var(--primary);">.io</span></div>
+            <p style="color: rgba(255,255,255,0.5); max-width: 500px; margin: 0 auto 2rem;">
+                The open-source low-code backend builder for developers who love code but hate boilerplate.
+            </p>
+            <div class="footer-links">
+                <a href="#">Documentation</a>
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+                <a href="#">Contact</a>
+            </div>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.3);">&copy; 2026 Low-Code Builder. All rights
+                reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

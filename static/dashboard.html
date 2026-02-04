@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Low-Code Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script>
+        const token = localStorage.getItem('builder_token');
+        if (!token) window.location.href = 'login.html';
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">My Projects</h1>
+                <p style="color: var(--text-muted);">Manage and export your backend applications.</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button onclick="window.location.href='profile.html'" class="btn btn-secondary">Profile</button>
+                <button id="logout-btn" class="btn btn-secondary">Log Out</button>
+                <button id="create-project-btn" class="btn btn-primary">+ New Project</button>
+            </div>
+        </header>
+
+        <div id="project-list" class="project-grid">
+            <!-- Projects injected via JS -->
+        </div>
+
+        <!-- Create Modal -->
+        <div id="create-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>New Project</h2>
+                <input type="text" id="new-project-name" placeholder="E.g. E-commerce API" style="margin-top: 1rem;">
+                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                    <button id="cancel-create" class="btn btn-secondary">Cancel</button>
+                    <button id="confirm-create" class="btn btn-primary">Create Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('builder_token');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+
+</html>

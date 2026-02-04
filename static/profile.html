@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Low-Code Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script>
+        const token = localStorage.getItem('builder_token');
+        if (!token) window.location.href = 'login.html';
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">User Profile</h1>
+                <p style="color: var(--text-muted);">Manage your account settings.</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">Back to
+                    Dashboard</button>
+            </div>
+        </header>
+
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div class="glass-panel" style="padding: 2rem;">
+                <h3 style="margin-bottom: 2rem;">Security</h3>
+
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">New Password</label>
+                        <input type="password" id="new-password" placeholder="Leave empty to keep current">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Update Profile</button>
+                </form>
+                <p id="msg" style="margin-top: 1rem; text-align: center;"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Placeholder for profile update logic (requires backend endpoint)
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // TODO: Implement backend API for profile update
+            document.getElementById('msg').innerText = "Profile update simulation: Success!";
+            document.getElementById('msg').style.color = "var(--success)";
+        });
+    </script>
+</body>
+
+</html>
