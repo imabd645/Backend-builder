@@ -1,0 +1,30 @@
+{
+  "id": "6a2c95b0-3a6d-48c3-9c64-e4ad11be6210",
+  "name": "Test Project",
+  "created_at": "2026-02-04T19:39:32.816855",
+  "schema_data": {
+    "models": {
+      "Post": {
+        "fields": {
+          "title": {
+            "type": "string",
+            "required": true
+          },
+          "content": {
+            "type": "text",
+            "required": true
+          }
+        },
+        "relations": {}
+      }
+    },
+    "apis": {
+      "Post": {
+        "create": "auth",
+        "read": "public",
+        "update": "auth",
+        "delete": "admin"
+      }
+    }
+  }
+}
