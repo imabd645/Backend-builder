@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import List
-import storage, schemas, builder_auth
+from . import storage, schemas, builder_auth
 from .generator.main_gen import generate_project_zip
 
 app = FastAPI(title="Low-Code Backend Builder")
