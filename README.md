@@ -130,8 +130,7 @@ The platform consists of two main parts:
 ## 📂 Project Structure
 
 ```
-LowCodeBuilder/
-├── app/
+app/
 │   ├── main.py            # Builder API Entrypoint
 │   ├── generator/         # Code Generation Engine
 │   │   ├── main_gen.py
